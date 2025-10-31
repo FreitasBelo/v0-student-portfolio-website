@@ -4,7 +4,7 @@ export default function Hero() {
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div>
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance leading-tight">
-            Hi, I'm <span className="text-primary">Your Name</span>
+            Hi, I'm <span className="text-primary">Emilio M. Freitas Belo</span>
           </h1>
           <p className="text-xl text-muted-foreground mb-4 leading-relaxed">
             BSIT Student | Full-Stack Developer | Tech Enthusiast
