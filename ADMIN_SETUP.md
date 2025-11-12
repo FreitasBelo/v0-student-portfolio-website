@@ -20,7 +20,7 @@ NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="generate-with-openssl-rand-base64-32"
 ```
 
-### 2. Run Migrations
+#2. Run Migrations
 ```bash
 pnpm prisma migrate dev --name init
 ```
