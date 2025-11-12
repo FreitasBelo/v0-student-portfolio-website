@@ -4,11 +4,12 @@ import { auth } from "@/lib/auth"
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const skill = await prisma.skill.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
     if (!skill) {
       return NextResponse.json({ error: "Skill not found" }, { status: 404 })
@@ -24,7 +25,7 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth()
@@ -32,9 +33,10 @@ export async function PUT(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const { id } = await params
     const data = await request.json()
     const skill = await prisma.skill.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         name: data.name,
         category: data.category,
@@ -53,7 +55,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth()
@@ -61,8 +63,9 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const { id } = await params
     await prisma.skill.delete({
-      where: { id: params.id },
+      where: { id },
     })
     return NextResponse.json({ message: "Skill deleted" })
   } catch (error) {
