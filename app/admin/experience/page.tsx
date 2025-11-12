@@ -99,6 +99,37 @@ export default function ExperiencePage() {
     }
   }
 
+  const handleEdit = (experience: Experience) => {
+    setEditingExperience(experience)
+    setFormData({
+      company: experience.company,
+      position: experience.position,
+      description: experience.description,
+      startDate: new Date(experience.startDate).toISOString().split('T')[0],
+      endDate: experience.endDate ? new Date(experience.endDate).toISOString().split('T')[0] : "",
+      current: experience.current,
+      order: experience.order,
+    })
+    setIsDialogOpen(true)
+  }
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this experience?")) return
+
+    try {
+      const res = await fetch(`/api/experience/${id}`, {
+        method: "DELETE",
+      })
+
+      if (res.ok) {
+        fetchExperiences()
+        router.refresh()
+      }
+    } catch (error) {
+      console.error("Failed to delete experience:", error)
+    }
+  }
+
   const resetForm = () => {
     setFormData({
       company: "",
@@ -279,6 +310,7 @@ export default function ExperiencePage() {
                   <TableHead>Position</TableHead>
                   <TableHead>Period</TableHead>
                   <TableHead>Description</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -292,6 +324,24 @@ export default function ExperiencePage() {
                     </TableCell>
                     <TableCell className="max-w-md truncate">
                       {exp.description}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex space-x-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleEdit(exp)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => handleDelete(exp.id)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}

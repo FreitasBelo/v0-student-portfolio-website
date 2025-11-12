@@ -87,6 +87,34 @@ export default function SkillsPage() {
     }
   }
 
+  const handleEdit = (skill: Skill) => {
+    setEditingSkill(skill)
+    setFormData({
+      name: skill.name,
+      category: skill.category,
+      level: skill.level,
+      order: skill.order,
+    })
+    setIsDialogOpen(true)
+  }
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this skill?")) return
+
+    try {
+      const res = await fetch(`/api/skills/${id}`, {
+        method: "DELETE",
+      })
+
+      if (res.ok) {
+        fetchSkills()
+        router.refresh()
+      }
+    } catch (error) {
+      console.error("Failed to delete skill:", error)
+    }
+  }
+
   const resetForm = () => {
     setFormData({
       name: "",
@@ -236,6 +264,7 @@ export default function SkillsPage() {
                   <TableHead>Category</TableHead>
                   <TableHead>Proficiency</TableHead>
                   <TableHead>Order</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -255,6 +284,24 @@ export default function SkillsPage() {
                       </div>
                     </TableCell>
                     <TableCell>{skill.order}</TableCell>
+                    <TableCell>
+                      <div className="flex space-x-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleEdit(skill)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => handleDelete(skill.id)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
