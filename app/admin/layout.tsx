@@ -6,11 +6,5 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await auth()
-
-  if (!session && !children.toString().includes("login")) {
-    redirect("/admin/login")
-  }
-
   return <>{children}</>
 }
