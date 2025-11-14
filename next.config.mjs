@@ -11,6 +11,17 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Don't bundle Prisma Client for the browser
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@prisma/client': false,
+        '.prisma/client': false,
+      }
+    }
+    return config
+  },
 }
 
 export default nextConfig

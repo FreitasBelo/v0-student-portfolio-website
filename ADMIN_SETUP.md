@@ -15,12 +15,12 @@ Your portfolio now has a complete admin panel with:
 First, make sure you have a PostgreSQL database. Update your `.env` file:
 
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/portfolio"
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="generate-with-openssl-rand-base64-32"
+DATABASE_URL="postgresql://neondb_owner:npg_SLC3YBr5XIeG@ep-steep-recipe-a71pet2z-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require"
+NEXTAUTH_URL="https://v0-student-portfolio-website.vercel.app"
+NEXTAUTH_SECRET="D7HcZGd5aMXFSG0RUW4B3g7mXgMvOFgpcHx4EQHtpIM="
 ```
 
-#2. Run Migrations
+### 2. Run Migrations
 ```bash
 pnpm prisma migrate dev --name init
 ```
@@ -85,3 +85,33 @@ When deploying to Vercel, add these environment variables in your project settin
 3. `NEXTAUTH_SECRET` - Generate with `openssl rand -base64 32`
 
 The deployment will automatically run migrations if configured correctly.
+
+## Project Management
+- `GET /api/projects/[id]` - Get a specific project
+- `PUT /api/projects/[id]` - Update a specific project
+- `DELETE /api/projects/[id]` - Delete a specific project
+
+## Experience Management
+- `GET /api/experience/[id]` - Get a specific experience
+- `PUT /api/experience/[id]` - Update a specific experience
+- `DELETE /api/experience/[id]` - Delete a specific experience
+
+## Skills Management
+- `GET /api/skills/[id]` - Get a specific skill
+- `PUT /api/skills/[id]` - Update a specific skill
+- `DELETE /api/skills/[id]` - Delete a specific skill
+
+### Project Management with Parameters
+- `GET /api/projects/[id]` - Get a specific project
+- `PUT /api/projects/[id]` - Update a specific project
+- `DELETE /api/projects/[id]` - Delete a specific project
+
+### Experience Management with Parameters
+- `GET /api/experience/[id]` - Get a specific experience
+- `PUT /api/experience/[id]` - Update a specific experience
+- `DELETE /api/experience/[id]` - Delete a specific experience
+
+### Skills Management with Parameters
+- `GET /api/skills/[id]` - Get a specific skill
+- `PUT /api/skills/[id]` - Update a specific skill
+- `DELETE /api/skills/[id]` - Delete a specific skill
