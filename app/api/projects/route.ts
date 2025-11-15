@@ -1,8 +1,19 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@clerk/nextjs/server"
+import { apiProtection, adminProtection } from "@/lib/arcjet"
 
-export async function GET() {
+export async function GET(request: Request) {
+  // Arcjet API protection for read operations
+  const decision = await apiProtection.protect(request, { requested: 1 })
+  
+  if (decision.isDenied()) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    )
+  }
+
   try {
     const projects = await prisma.project.findMany({
       orderBy: { order: "asc" },
@@ -17,6 +28,16 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  // Arcjet admin protection for mutations
+  const decision = await adminProtection.protect(request, { requested: 1 })
+  
+  if (decision.isDenied()) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    )
+  }
+
   try {
     const { userId } = await auth()
     if (!userId) {

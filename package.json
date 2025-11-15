@@ -16,6 +16,8 @@
     "vercel-build": "prisma generate && next build"
   },
   "dependencies": {
+    "@arcjet/inspect": "1.0.0-beta.15",
+    "@arcjet/next": "1.0.0-beta.15",
     "@clerk/nextjs": "^6.35.1",
     "@hookform/resolvers": "^3.10.0",
     "@prisma/client": "^6.19.0",

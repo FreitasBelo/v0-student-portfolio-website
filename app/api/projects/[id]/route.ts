@@ -1,11 +1,22 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { auth } from "@clerk/nextjs/server"
+import { apiProtection, adminProtection } from "@/lib/arcjet"
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Arcjet API protection for read operations
+  const decision = await apiProtection.protect(request, { requested: 1 })
+  
+  if (decision.isDenied()) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    )
+  }
+
   try {
     const { id } = await params
     const project = await prisma.project.findUnique({
@@ -27,6 +38,16 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Arcjet admin protection for mutations
+  const decision = await adminProtection.protect(request, { requested: 1 })
+  
+  if (decision.isDenied()) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    )
+  }
+
   try {
     const { userId } = await auth()
     if (!userId) {
@@ -61,6 +82,16 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Arcjet admin protection for mutations
+  const decision = await adminProtection.protect(request, { requested: 1 })
+  
+  if (decision.isDenied()) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    )
+  }
+
   try {
     const { userId } = await auth()
     if (!userId) {
