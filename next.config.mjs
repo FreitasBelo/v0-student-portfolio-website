@@ -13,10 +13,8 @@ const nextConfig = {
   },
   // Use empty turbopack config to silence the warning and use default Turbopack
   turbopack: {},
-  experimental: {
-    // Server-only modules configuration for Turbopack
-    serverComponentsExternalPackages: ['@prisma/client', 'prisma'],
-  },
+  // Server-only modules configuration (moved from experimental in Next.js 16)
+  serverExternalPackages: ['@prisma/client', 'prisma'],
 }
 
 export default nextConfig
