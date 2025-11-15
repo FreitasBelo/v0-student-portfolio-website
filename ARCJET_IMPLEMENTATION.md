@@ -131,3 +131,15 @@ Still enforced after Arcjet checks pass for admin routes.
 ✅ Auto-deployed to Vercel with ARCJET_KEY
 ✅ All API routes protected
 ✅ Middleware active globally
+
+✦Aj WARN Arcjet will use 127.0.0.1 when missing public IP address in development mode
+
+---
+
+Your Actual API Routes (these exist):
+├── /api/projects      ← Protected by Arcjet ✅
+├── /api/experience    ← Protected by Arcjet ✅
+└── /api/skills        ← Protected by Arcjet ✅
+
+Arcjet Middleware (runs on every request):
+└── proxy.ts           ← Checks all requests before they reach your routes
