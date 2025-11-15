@@ -1,13 +1,13 @@
-import { auth } from "@/lib/auth"
+import { currentUser } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
-import { signOut } from "@/lib/auth"
+import { SignOutButton } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export default async function AdminDashboard() {
-  const session = await auth()
+  const user = await currentUser()
 
-  if (!session) {
+  if (!user) {
     redirect("/admin/login")
   }
 
@@ -34,17 +34,12 @@ export default async function AdminDashboard() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">{session.user?.email}</span>
-              <form
-                action={async () => {
-                  "use server"
-                  await signOut()
-                }}
-              >
-                <Button type="submit" variant="outline" size="sm">
+              <span className="text-sm text-gray-600">{user.emailAddresses[0]?.emailAddress}</span>
+              <SignOutButton>
+                <Button variant="outline" size="sm">
                   Sign Out
                 </Button>
-              </form>
+              </SignOutButton>
             </div>
           </div>
         </div>
