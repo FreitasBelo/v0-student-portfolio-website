@@ -11,16 +11,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      // Don't bundle Prisma Client for the browser
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@prisma/client': false,
-        '.prisma/client': false,
-      }
-    }
-    return config
+  // Use empty turbopack config to silence the warning and use default Turbopack
+  turbopack: {},
+  experimental: {
+    // Server-only modules configuration for Turbopack
+    serverComponentsExternalPackages: ['@prisma/client', 'prisma'],
   },
 }
 
