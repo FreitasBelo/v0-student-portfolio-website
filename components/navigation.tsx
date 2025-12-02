@@ -11,9 +11,8 @@ export default function Navigation() {
     { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#projects" },
     { name: "Skills", href: "#skills" },
-    { name: "Security", href: "/security" },
-    { name: "MCP", href: "/mcp-integration" },
     { name: "Contact", href: "#contact" },
+    
   ]
 
   return (
