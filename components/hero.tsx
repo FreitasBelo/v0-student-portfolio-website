@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Hero() {
   return (
     <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
@@ -29,9 +31,19 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative">
-          <div className="w-full aspect-square bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center border border-primary/20">
-            <img src="/professional-developer-avatar.jpg" alt="Profile" className="w-full h-full rounded-2xl object-cover" />
+        <div className="relative flex justify-center">
+          <div className="w-40 h-40 md:w-56 md:h-56 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full overflow-hidden flex items-center justify-center border border-primary/20 shadow-lg">
+            <Image
+              src="/professional-developer-avatar.jpg"
+              alt="Profile"
+              width={224}
+              height={224}
+              priority
+              quality={90}
+              sizes="(max-width: 768px) 160px, 224px"
+              className="w-full h-full object-cover transform-gpu transition-transform duration-200 hover:scale-105 filter saturate-105 contrast-105"
+            />
+            <div className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-white/30" />
           </div>
         </div>
       </div>

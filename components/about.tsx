@@ -26,7 +26,7 @@ export default function About() {
             <div className="bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-colors">
               <h3 className="text-lg font-semibold text-primary mb-2">Education</h3>
               <p className="text-muted-foreground">Bachelor of Science in Information Technology</p>
-              <p className="text-sm text-muted-foreground/70">University Name • Year</p>
+              <p className="text-sm text-muted-foreground/70">St. Paul University Philippines • Year</p>
             </div>
 
             <div className="bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-colors">
